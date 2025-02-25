@@ -59,6 +59,9 @@ lore=[
 if check_path('data','games_played'):
     games_played=load('data','games_played')
     lore.append(f'You have played {games_played} games.')
+if check_path('data','joined'):
+    joined=load('data','joined')
+    lore.append(f'You first played Agrios {joined}')
 
 def fun_fact():
     return random.choice(lore)
