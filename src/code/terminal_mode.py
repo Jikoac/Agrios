@@ -3,7 +3,7 @@ from time import time
 from src import src
 from lore import fun_fact
 from random import randint
-from styling import player,deck
+from styling import player,deck,color,style
 def set_character(character=None):
     hero=character or src.character.random()
     items=[]
@@ -35,15 +35,17 @@ while (hero.health>0) and ((enemy_0.health>0) or (enemy_1.health>0)):
     enemy_0.stamina=min(enemy_0.stamina+1,enemy_0.max_stamina)
     enemy_1.stamina=min(enemy_1.stamina+1,enemy_1.max_stamina)
     for move in range(hero.property['moves_per_turn']):
-        os.system('cls' if os.name == 'nt' else 'clear')
 
-        print(f'Did you know... {fun_fact()}')
-        print(hero)
-        print(enemy_0)
-        print(enemy_1)
-        print(deck(hero))
-        finished=False
+        finished=None
         while not finished:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(f'Did you know... {fun_fact()}')
+            print(hero)
+            print(style['bold']+'0.'+style['plain']+str(enemy_0))
+            print(style['bold']+'1.'+style['plain']+str(enemy_1))
+            print(deck(hero))
+            if finished == False:
+                print(color[0]+'Invalid action.'+color[7])
             finished=hero.use_card(int(input('Choose a card: ') or randint(0,len(hero.deck))),enemies[int(input('Choose a target: ') or randint(0,1))])
             
     if (enemy_0.health<enemy_0.max_health/2) and enemy_0:
