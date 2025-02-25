@@ -4,6 +4,7 @@ from src import src
 from lore import fun_fact
 from random import randint
 from styling import player,deck,color,style,display_xp
+from data_handling import check_file,load,save
 def set_character(character=None):
     hero=character or src.character.random()
     items=[]
@@ -73,3 +74,10 @@ hero.xp+=50*(2-len([enemy for enemy in enemies if not enemy.health>0]))
 if hero.health>0:
     hero.xp+=100
 display_xp(hero)
+if check_file('data','XP'):
+    xp=int(load('data','XP'))
+else:
+    xp=0
+xp+=hero.xp
+save('data','XP',data=str(xp))
+print(f'Total {style['bold']}XP:{style['plain']}{color[2]}{str(xp)}{color[7]}')

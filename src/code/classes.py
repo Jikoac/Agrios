@@ -1,9 +1,7 @@
 from random import randint
 import random
-import os
 import pygame as pg
-
-path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from data_handling import os,path
 
 class race:
     def __init__(self,name="Human",tier=0):
@@ -171,13 +169,3 @@ class spell:
 
 class game:
     darkness=0
-
-def load(*filepath):
-    file = os.path.join(path,*filepath)
-    f = open(file,'r')
-    return f.read()
-
-def save(*filepath,data=''):
-    file = os.path.join(path,*filepath)
-    f = open(file,'w')
-    f.write(data)
