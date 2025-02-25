@@ -1,8 +1,28 @@
 import pygame as pg
-from data_handling import path
+from data_handling import path,os
 
-# Initialize pygame
+#★•*⁎⁕◊◈⁺₊⊹⋇
+
 pg.init()
+font=pg.font.SysFont('Noto Sans',25)
+
+def render_text(text:str='',color=(255,255,255),font_data=None):
+    text=str(text).replace('★','⁕')
+    font_data = font_data or ('Noto Sans',25)
+    font=pg.font.SysFont(*font_data)
+    lines = text.split('\n')
+
+    max_width = max(font.size(line)[0] for line in lines)
+    total_height = sum(font.size(line)[1] for line in lines)
+    text_surface = pg.Surface((max_width, total_height), pg.SRCALPHA)
+
+    y_offset = 0
+    for line in lines:
+        line_surface = font.render(line, True, color)
+        text_surface.blit(line_surface, (0, y_offset))
+        y_offset += font.size(line)[1]
+    
+    return text_surface
 
 # Get the screen size
 screen_info = pg.display.Info()
@@ -36,3 +56,12 @@ def display(window, source_surface:pg.Surface, dest:tuple[int,int]|None=None, *a
 
     # Blit the scaled surface onto the window
     window.blit(scaled_surface, (0, 0))
+
+def create_card(card_texture:str='card',display_texture:str='character/__none__',text:str=None) -> pg.Surface:
+    card=pg.image.load(os.path.join(path,'assets','textures','misc',card_texture)+'.png')
+    icon=pg.image.load(os.path.join(path,'assets','textures',display_texture)+'.png')
+    card.blit(icon,(7,7))
+    if text:
+        rendered_text=render_text(text)
+        card.blit(rendered_text,((379-rendered_text.get_width())/2,379))
+    return card
