@@ -18,6 +18,7 @@ aioneide_ascended=race("Aioneide (Ascended)",3) #immortal beings created by Xzae
 ungod=race('ungod',tier=5) #Knoughn is the only ungod, and continues to play even after his death
 aionimorph=race('Aionimorph',4) #Aionimorphs are half Aioneide, half Agrimorph, and can take the form of any Agrimorph
 anthrimorph=race('Anthrimorph',3) #Anthrimorphs are humans that have artificially gained shapeshifting powers
+# When an Anthrimorph transforms, they remain in their wild form and can't heal until at 0 HP, at which point they return to normal
 
 races = [
     human,
@@ -35,5 +36,11 @@ races = [
     rimeborn,
     aioneide_ascended,
     ungod,
-    aionimorph
+    aionimorph,
+    anthrimorph
+]
+wild=[
+    agrimorph,
+    aionimorph,
+    anthrimorph
 ]

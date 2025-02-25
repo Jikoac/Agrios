@@ -53,9 +53,17 @@ class src_character(src_object):
     jason_rozar=character("Jason Rozar",24,6,15,3,2,human)
     # Series 0
     julius_archwarden=character("Julius Archwarden",30,15,30,4,3,aionimorph,series='Series 0')
+    julius_archwarden_wild=character("Julius Archwarden",35,25,20,5,3,wild_form,series='Series 0')
     dara_zenne=character("Dara Zenne",20,7,15,3,2,cimagiant,gender='female',series='Series 0')
     matthias_archwarden=character("Matthias Archwarden",20,12,21,4,3,aionimorph,series='Series 0')
+    matthias_archwarden_wild=character("Matthias Archwarden",25,18,25,4,3,wild_form,series='Series 0')
     jonas_hunter=character('Jonas Hunter',15,9,15,4,3,anthrimorph,series='Series 0')
+    jonas_hunter_wild=character('Jonas Hunter',10,14,5,4,3,wild_form,series='Series 0')
+    iris_forge=character('Iris Forge',15,7,10,3,1,agrimorph,'female','Series 0')
+    iris_forge_wild=character('Iris Forge',20,16,10,3,1,wild_form,'female','Series 0')
+    silas_wayne=character('Silas Wayne',20,8,15,3,3,anthrimorph,series='Series 0')
+    silas_wayne_wild=character('Silas Wayne',10,8,10,6,3,wild_form,series='Series 0')
+    christopher_drake=character('Christopher Drake',25,10,20,4,2,human,series='Series 0')
 
     def tier(self,tier:int):
         return [character for character in self.all if character.tier==tier]
@@ -82,7 +90,7 @@ if __name__=='__main__':
     for char in src_character().all:
         if char.name == name:
             print(char)
-            if char.race==agrimorph:
+            if char.race in wild:
                 for char in src_character().wild:
                     if char.name==name:
                         print(char)
@@ -96,7 +104,7 @@ if __name__=='__main__':
     elif name=='__all__':
         for char in src_character().all:
             print(char)
-            if char.race==agrimorph:
+            if char.race in wild:
                 for wild in src_character().wild:
                     if wild.name==char.name:
                         print(wild)
