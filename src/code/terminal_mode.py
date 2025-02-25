@@ -9,7 +9,7 @@ from datetime import datetime
 os.system('cls' if os.name == 'nt' else 'clear')
 if not check_file('data','joined'):
     now=datetime.now()
-    current_time = now.strftime("%m/%d/$y, %H:%M:%S")
+    current_time = now.strftime(f"%m/%d/{now.strftime('%Y')}, %H:%M:%S")
     save('data','joined',data=current_time)
 if check_file('data','games_played'):
     games_played=int(load('data','games_played'))
