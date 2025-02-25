@@ -1,4 +1,5 @@
 import pygame as pg
+from data_handling import path
 
 # Initialize pygame
 pg.init()
@@ -18,7 +19,7 @@ scaled_resolution = (int(desired_resolution[0] * scale_factor), int(desired_reso
 
 # Create the window with the scaled resolution
 window = pg.display.set_mode(scaled_resolution, pg.RESIZABLE)
-pg.display.set_caption("Pygame Window Resized to Screen Size")
+pg.display.set_caption("Αγριος")
 
 def display(window, source_surface:pg.Surface, dest:tuple[int,int]|None=None, *args, **kwargs):
 
@@ -35,30 +36,3 @@ def display(window, source_surface:pg.Surface, dest:tuple[int,int]|None=None, *a
 
     # Blit the scaled surface onto the window
     window.blit(scaled_surface, (0, 0))
-
-    # Load an image (make sure to replace 'your_image.png' with the path to your image file)
-if __name__=='__main__':
-    image = pg.image.load("C:/Users/grant/Pictures/Miscellaneous/SC Flag Wallpaper.png")
-    character=pg.image.load("C:/Users/grant/Documents/Programs/Games/agrios/src/assets/textures/character/__nonefem__.png")
-
-    # Main loop
-    running = True
-    while running:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                running = False
-        keys=pg.key.get_pressed()
-
-        # Fill the window with a color (optional)
-        window.fill((0, 0, 0))
-
-        # Use the display function to blit and scale the image
-        display(window, image)
-        display(window,character)
-
-        # Update the display
-        pg.display.flip()
-        if keys[pg.K_q]:
-            running=False
-    # Quit pygame
-    pg.quit()
