@@ -73,7 +73,7 @@ class player:
         self.race=character.race
         self.actions=2
         self.spells=10
-        self.deck=[action()]
+        self.deck=[action('Attack',available=False,description='Chance to damage opponent')]
         self.discard=[]
         self.property={'has_hecate_scroll':False,'moves_per_turn':1,'regen':1}
         self.property.update(character.property)
@@ -168,3 +168,16 @@ class spell:
         self.id=name.lower().replace(' ','_')
         self.description=description
         self.condition=condition
+
+class game:
+    darkness=0
+
+def load(*filepath):
+    file = os.path.join(path,*filepath)
+    f = open(file,'r')
+    return f.read()
+
+def save(*filepath,data=''):
+    file = os.path.join(path,*filepath)
+    f = open(file,'w')
+    f.write(data)

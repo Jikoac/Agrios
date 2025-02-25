@@ -1,28 +1,38 @@
-from classes import player
+from classes import player,game
 from random import randint
 from races import drakonios
 class player(player):
     def damage_spell(self,target:player):
         target.health-=self.damage
+        self.xp+=2*self.damage
     def heal_spell(self):
-        increased_health=min(self.health+randint(1,6),self.max_health)
+        increase=randint(1,6)
+        increased_health=min(self.health+increase,self.max_health)
         self.health=max(increased_health,self.health)
-        increased_health=min(self.health+randint(1,6),self.max_health)
+        self.xp+=increase
+        increase=randint(1,6)
+        increased_health=min(self.health+increase,self.max_health)
         self.health=max(increased_health,self.health)
+        self.xp+=increase
     def shield_spell(self):
         self.health+=10
+        self.xp+=10
     def fire_spell(self,target:player):
         if randint(1,6) <= self.skill:
             target.health-=self.damage
+            self.xp+=2*self.damage
         if randint(1,6) <= self.skill:
             target.health-=self.damage
+            self.xp+=2*self.damage
     def sharpness_spell(self):
         self.damage+=1
+        self.xp+=5
     def weakening_spell(self,target:player):
         target.damage-=1
     def soul_tearing_spell(self,target:player):
         target.max_health-=randint(1,6)
         target.health=min(target.health,target.max_health)
+        self.xp+=10
     def spell_of_wisdom(self):
         self.skill+=randint(0,2)
     def leech_spell(self,target:player):
@@ -30,6 +40,7 @@ class player(player):
             increased_health=min(self.health+self.damage,self.max_health)
             self.health=max(increased_health,self.health)
             target.health-=self.damage
+            self.xp+=self.damage*3
     def new_spell(self):
         pass
 
@@ -64,4 +75,6 @@ class player(player):
             self.spell_of_wisdom()
         elif spell.id=='leech_spell':
             self.leech_spell(target)
+        elif spell.id=='summoning_spell':
+            game.darkness+=1
         return True

@@ -3,7 +3,7 @@ from time import time
 from src import src
 from lore import fun_fact
 from random import randint
-from styling import player,deck,color,style
+from styling import player,deck,color,style,display_xp
 def set_character(character=None):
     hero=character or src.character.random()
     items=[]
@@ -45,8 +45,14 @@ while (hero.health>0) and ((enemy_0.health>0) or (enemy_1.health>0)):
             print(style['bold']+'1.'+style['plain']+str(enemy_1))
             print(deck(hero))
             if finished == False:
-                print(color[0]+'Invalid action.'+color[7])
-            finished=hero.use_card(int(input('Choose a card: ') or randint(0,len(hero.deck))),enemies[int(input('Choose a target: ') or randint(0,1))])
+                print(color[0]+'Invalid action. Try again.'+color[7])
+            card=input('Choose a card: ')
+            if '?' in card:
+                print(style['bold']+hero.deck[int(card.replace('?','').strip())].description+style['plain'])
+                input('Continue ')
+            else:
+                target=input('Choose a target: ')
+                finished=hero.use_card(int(card or randint(0,len(hero.deck))),enemies[int(target or randint(0,1))])
             
     if (enemy_0.health<enemy_0.max_health/2) and enemy_0:
         enemy_0.recover()
@@ -63,3 +69,7 @@ fight_duration = end_time - start_time
 os.system('cls' if os.name == 'nt' else 'clear')
 print('You win!' if hero.health>0 else 'You lose!')
 print(f'The fight lasted {turns:02} turn{'s' if turns>1 else ''} and took {fight_duration:.2f} second{'s' if fight_duration!=1 else ''}.')
+hero.xp+=50*(2-len([enemy for enemy in enemies if not enemy.health>0]))
+if hero.health>0:
+    hero.xp+=100
+display_xp(hero)

@@ -54,5 +54,5 @@ def deck(hero:player):
     return f'Your deck:{', '.join([f'{colortype(i,hero)}{style['bold']}{i[0]}:{style['plain']}{colortype(i,hero)}{i[1].name}' for i in zip(range(len(hero.deck)),hero.deck)])}{color[7]}'
 
 def display_xp(hero:player):
-    display_color=color[min(5,max(0,round(hero.xp/100)))]
+    display_color=color[min(5,max(0,hero.xp//100))]
     print(f'You earned {display_color}{hero.xp}{color[7]} XP!')

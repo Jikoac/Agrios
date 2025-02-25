@@ -4,13 +4,16 @@ from random import randint
 class player(player):
     def attack(self,target):
         if randint(1,6) <= self.skill:
+            self.xp+=2*self.damage
             if self.race.id=='rimeborn' and target.race.id=='drakonios':
                 target.health-=2*self.damage
             else:
                 target.health-=self.damage
     def recover(self):
-        increased_health=min(self.health+randint(1,6),self.max_health)
+        increase=randint(1,6)
+        increased_health=min(self.health+increase,self.max_health)
         self.health=max(increased_health,self.health)
+        self.xp+=increase
     def perform_action(self,action,target=None):
         if action.id=='attack':
             self.attack(target)
