@@ -1,5 +1,6 @@
 #this file is where lore will be stored
 import random
+from data_handling import load, check_path
 lore=[
     'The rimeborn were created by Khione to protect the frostlands. They deal double damage to Drakonios.',
     # 'Agrimorphs are shapeshifting beings, half human and half shapeless. Each agrimorph has a wild form.',
@@ -54,6 +55,11 @@ lore=[
     #First 50 ^
     'There are only two beings more powerful than the Coelestis.'
 ]
+
+if check_path('data','games_played'):
+    games_played=load('data','games_played')
+    lore.append(f'You have played {games_played} games.')
+
 def fun_fact():
     return random.choice(lore)
 
