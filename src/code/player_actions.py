@@ -14,6 +14,8 @@ class player(player):
         increased_health=min(self.health+increase,self.max_health)
         self.health=max(increased_health,self.health)
         self.xp+=increase
+    def rest(self):
+        self.stamina=min(self.stamina+5,self.max_stamina)
     def perform_action(self,action,target=None):
         if action.id=='attack':
             self.attack(target)
@@ -27,5 +29,7 @@ class player(player):
                     if char.id == self.id and char.series == self.series:
                         self.transform(char)
                         break
+        elif action.id=='rest':
+            self.rest()
         elif action.id=='antimagic':
             pass
