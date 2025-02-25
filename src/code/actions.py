@@ -6,5 +6,6 @@ class src_action(src_object):
     recover=action('Recover',condition={'target':'self','compare':'at_most','standard':'max_health'},description='Heal 1 to 6 HP')
     transform=action('Transform',available=False,level=-1,condition=None)
     antimagic=action('Antimagic',available=False,level=-1)
+    rest=action('Rest',condition={'tatget':'self','compare':'at_most','value':'stamina','standard':'max_stamina'})
     def __init__(self):
         self.all=[card for card in self.get_all() if card.available]
