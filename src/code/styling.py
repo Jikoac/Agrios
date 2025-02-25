@@ -1,6 +1,7 @@
 from src import player
 import colorama as clr
 from classes import spell
+import os
 
 color=[
       clr.Fore.RED,
@@ -56,3 +57,35 @@ def deck(hero:player):
 def display_xp(hero:player):
     display_color=color[min(5,max(0,hero.xp//100))]
     print(f'You earned {display_color}{hero.xp}{color[7]} XP!')
+
+def tutorial():
+    def con(txt='Continue '):
+        value = input(txt)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        return value
+    print('Welcome to Agrios! I percieve this is your first time playing!')
+    print('The game is pretty simple, but I will go ahead and explain a few things anyway.\n')
+    con()
+    print('You have a few stats you need to know.\n')
+    con()
+    print(f'{color[5]}HP{color[7]} determines how many hits you can take.\n')
+    con()
+    print(f'{color[5]}HP{color[7]} determines how many hits you can take.')
+    print(f'{color[0]}Damage{color[7]} determines the power of your attacks.\n')
+    con()
+    print(f'{color[5]}HP{color[7]} determines how many hits you can take.')
+    print(f'{color[0]}Damage{color[7]} determines the power of your attacks.')
+    print(f'{color[2]}Stamina{color[7]} allows you to use spells.\n')
+    con()
+    print(f'{color[5]}HP{color[7]} determines how many hits you can take.')
+    print(f'{color[0]}Damage{color[7]} determines the power of your attacks.')
+    print(f'{color[2]}Stamina{color[7]} allows you to use spells.')
+    print(f'{color[1]}Skill{color[7]} determines your chance (out of 6) of landing a succesful attack.\n')
+    con()
+    print('The race of your character may do something special, but we\'re still working on those.\n')
+    con()
+    print('If you ever have a question about a card, type ?[number] to view the card description.\n')
+    con()
+    print('Good luck! You\'ll need it!\n')
+    con()
+    

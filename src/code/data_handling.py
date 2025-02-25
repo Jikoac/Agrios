@@ -10,7 +10,7 @@ def load(*filepath):
 def save(*filepath,data=''):
     file = os.path.join(path,*filepath)
     f = open(file,'w')
-    f.write(data)
+    f.write(str(data))
 
 def list_files(*filepath):
     directory=os.path.join(path,*filepath)

@@ -3,8 +3,22 @@ from time import time
 from src import src
 from lore import fun_fact
 from random import randint
-from styling import player,deck,color,style,display_xp
+from styling import player,deck,color,style,display_xp,tutorial
 from data_handling import check_file,load,save
+from datetime import datetime
+os.system('cls' if os.name == 'nt' else 'clear')
+if not check_file('data','joined'):
+    now=datetime.now()
+    current_time = now.strftime("%m/%d/$y, %H:%M:%S")
+    save('data','joined',data=current_time)
+if check_file('data','games_played'):
+    games_played=int(load('data','games_played'))
+else:
+    games_played=0
+    tutorial()
+games_played+=1
+save('data','games_played',data=games_played)
+
 def set_character(character=None):
     hero=character or src.character.random()
     items=[]
@@ -40,7 +54,7 @@ while (hero.health>0) and ((enemy_0.health>0) or (enemy_1.health>0)):
         finished=None
         while not finished:
             os.system('cls' if os.name == 'nt' else 'clear')
-            print(f'Did you know... {fun_fact()}')
+            print(f'Did you know... {style['bold']}{fun_fact()}{style['plain']}')
             print(hero)
             print(style['bold']+'0.'+style['plain']+str(enemy_0))
             print(style['bold']+'1.'+style['plain']+str(enemy_1))
@@ -70,7 +84,7 @@ fight_duration = end_time - start_time
 os.system('cls' if os.name == 'nt' else 'clear')
 print('You win!' if hero.health>0 else 'You lose!')
 print(f'The fight lasted {turns:02} turn{'s' if turns>1 else ''} and took {fight_duration:.2f} second{'s' if fight_duration!=1 else ''}.')
-hero.xp+=50*(2-len([enemy for enemy in enemies if not enemy.health>0]))
+hero.xp+=50*len([enemy for enemy in enemies if not enemy.health>0])
 if hero.health>0:
     hero.xp+=100
 display_xp(hero)
