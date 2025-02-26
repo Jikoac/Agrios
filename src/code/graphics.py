@@ -57,11 +57,11 @@ def display(window, source_surface:pg.Surface, dest:tuple[int,int]|None=None, *a
     # Blit the scaled surface onto the window
     window.blit(scaled_surface, (0, 0))
 
-def create_card(card_texture:str='card',display_texture:str='character/__none__',text:str=None) -> pg.Surface:
+def create_card(card_texture:str='card',display_texture:str='character/__none__',text:str=None,text_color=(255,255,255),font_data=None) -> pg.Surface:
     card=pg.image.load(os.path.join(path,'assets','textures','misc',card_texture)+'.png')
     icon=pg.image.load(os.path.join(path,'assets','textures',display_texture)+'.png')
     card.blit(icon,(7,7))
     if text:
-        rendered_text=render_text(text)
+        rendered_text=render_text(text,text_color,font_data)
         card.blit(rendered_text,((379-rendered_text.get_width())/2,379))
     return card

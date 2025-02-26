@@ -65,6 +65,18 @@ class src_character(src_object):
     silas_wayne_wild=character('Silas Wayne',10,8,10,6,3,wild_form,series='Series 0') #Snake
     christopher_drake=character('Christopher Drake',25,10,20,4,2,human,series='Series 0') # Creator of Mechadragon
 
+    class hidden(src_object):
+        type=character
+
+        warren_warlock=character
+
+        def tier(self,tier:int):
+            return [character for character in self.all if character.tier==tier]
+        def race(self,race:race):
+            return [character for character in self.all if character.race==race]
+        def series(self,series=None):
+            return [char for char in self.all if char.series == series]
+
     def tier(self,tier:int):
         return [character for character in self.all if character.tier==tier]
     def race(self,race:race):
@@ -81,6 +93,15 @@ class src_character(src_object):
             tier=4
         else:
             tier=5
+        for t in range(tier):
+            if len(self.tier(tier-t)):
+                tier=t
+                break
+        else:
+            for t in range(6-tier):
+                if len(self.tier(tier+t)):
+                    tier=t
+                    break
         return random.choice(self.tier(tier))
     def series(self,series=None):
         return [char for char in self.all if char.series == series]
@@ -91,9 +112,9 @@ if __name__=='__main__':
         if char.name == name:
             print(char)
             if char.race in wild:
-                for char in src_character().wild:
-                    if char.name==name:
-                        print(char)
+                for wild_char in src_character().wild:
+                    if wild_char.id==char.id+'_wild':
+                        print(wild_char)
                         break
             break
     if name=='' or name=='__tier__':
@@ -105,9 +126,9 @@ if __name__=='__main__':
         for char in src_character().all:
             print(char)
             if char.race in wild:
-                for wild in src_character().wild:
-                    if wild.name==char.name:
-                        print(wild)
+                for wild_char in src_character().wild:
+                    if wild_char.id==char.id+'_wild':
+                        print(wild_char)
                         break
     elif name=='__race__':
         for r in races:

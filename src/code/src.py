@@ -4,7 +4,7 @@ from actions import src_action
 from spells import src_spell
 from player_actions import player as player_act
 from spell_actions import player as player_spell
-from classes import action, spell,path
+from classes import action, spell,path,user
 
 class src:
     character=src_character()
@@ -49,3 +49,13 @@ class player(player_act,player_spell):
         elif isinstance(card,spell):
             return self.perform_spell(card,target)
         return True
+
+class user(user):
+    def acquire(self,name,can_be_owned:bool=False):
+        if can_be_owned:
+            item = getattr(src,name).random
+            getattr(self,name).append(item)
+        else:
+            item = getattr(src,name).unowned(self,name)
+            if item:
+                getattr(self,name).append(item)

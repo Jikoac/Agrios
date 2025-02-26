@@ -1,7 +1,8 @@
 from random import randint
 import random
 import pygame as pg
-from data_handling import os,path
+from data_handling import os,path,load
+import json
 
 class race:
     def __init__(self,name="Human",tier=0):
@@ -134,20 +135,33 @@ class equipment:
         self.description=description
 class src_object:
     type=None
+    name='items'
     def __init__(self):
+        self.items={}
         self.all=self.get_all()
     def __iter__(self):
         return self.all.__iter__()
     def get_all(self,type=None):
+        self.items={}
         type = type or self.type
         objects = []
         for attr_name in dir(self):
             attr_value = getattr(self, attr_name)
             if isinstance(attr_value, type):
+                attr_value.id=attr_name
                 objects.append(attr_value)
+                self.items.update({attr_name:attr_value})
         return objects
     def random(self):
         return random.choice(self.all)
+    def unowned(self,user,name:str=None):
+        name = name or self.name
+        unowned_items=type(self)()
+        unowned_items.all=[item for item in unowned_items.all if not item in getattr(user,name)]
+        if len(unowned_items.all):
+            return unowned_items.random()
+        user.grants.append(name)
+        return None
 class action:
     def __init__(self,name='Attack',available=True,description='',level=0,condition:dict={'target':'enemy','value':'health','compare':'at_least','standard':0}):
         self.name=name
@@ -167,5 +181,11 @@ class spell:
         self.description=description
         self.condition=condition
 
+class user:
+    def __init__(self,user_data=''):
+        data={'character':['james_forge'],'equipment':[],'action':['recover'],'spell':['damage_spell'],'grants':['character']}
+        user_data=json.loads(user_data)
+        data.update(user_data)
+        self.__dict__.update(data)
 class game:
     darkness=0

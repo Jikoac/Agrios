@@ -26,7 +26,7 @@ class player(player):
                 self.transform(self.other_form)
             else:
                 for char in src_character().wild:
-                    if char.id == self.id and char.series == self.series:
+                    if char.id == (self.id+'_wild') and char.series == self.series:
                         self.transform(char)
                         break
         elif action.id=='rest':
