@@ -34,7 +34,7 @@ hero.deck+=[src.action.random()]
 cards=5
 while cards:
     card=src.spell.randomized()
-    if (card.level<3 or hero.race.id=='akyron') and card.stamina<=hero.max_stamina:
+    if (card.level<3 or hero.race.id=='ageless') and card.stamina<=hero.max_stamina:
         hero.deck+=[card]
         cards-=1
 enemy_0=set_character()
