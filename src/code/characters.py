@@ -95,12 +95,12 @@ class src_character(src_object):
             tier=5
         for t in range(tier):
             if len(self.tier(tier-t)):
-                tier=t
+                tier=tier-t
                 break
         else:
             for t in range(6-tier):
                 if len(self.tier(tier+t)):
-                    tier=t
+                    tier=tier+t
                     break
         return random.choice(self.tier(tier))
     def series(self,series=None):
@@ -141,5 +141,7 @@ if __name__=='__main__':
         series = list(set(series))
         for s in series:
             print(f'{str(s)}: {len(src_character().series(s))}')
+    elif name == '__random__':
+        print(src_character().random())
     elif name not in list(map(lambda x:x.name,src_character().all)):
         print('Character not found!')

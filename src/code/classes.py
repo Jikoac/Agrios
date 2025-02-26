@@ -148,8 +148,8 @@ class src_object:
         for attr_name in dir(self):
             attr_value = getattr(self, attr_name)
             if isinstance(attr_value, type):
-                attr_value.id=attr_name
                 objects.append(attr_value)
+                attr_value.id=attr_name
                 self.items.update({attr_name:attr_value})
         return objects
     def random(self):
