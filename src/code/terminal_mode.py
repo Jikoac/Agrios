@@ -67,7 +67,12 @@ while (hero.health>0) and ((enemy_0.health>0) or (enemy_1.health>0)):
                 input('Continue ')
             else:
                 target=input('Choose a target: ')
-                finished=hero.use_card(int(card or randint(0,len(hero.deck))),enemies[int(target or randint(0,1))])
+                try:
+                    finished=hero.use_card(int(card or randint(0,len(hero.deck))),enemies[int(target or randint(0,1))])
+                except ValueError:
+                    finished=False
+                except IndexError:
+                    finished=False
             
     if (enemy_0.health<enemy_0.max_health/2) and enemy_0:
         enemy_0.recover()
