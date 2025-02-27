@@ -41,7 +41,7 @@ scaled_resolution = (int(desired_resolution[0] * scale_factor), int(desired_reso
 window = pg.display.set_mode(scaled_resolution, pg.RESIZABLE)
 pg.display.set_caption("Αγριος")
 
-def display(window, source_surface:pg.Surface, dest:tuple[int,int]|None=None, *args, **kwargs):
+def display_image(window, source_surface:pg.Surface, dest:tuple[int,int]|None=None, *args, **kwargs):
 
     if dest==None:
         dest=((1920-source_surface.get_width())/2,(1080-source_surface.get_height())/2)
@@ -65,3 +65,14 @@ def create_card(card_texture:str='card',display_texture:str='character/__none__'
         rendered_text=render_text(text,text_color,font_data)
         card.blit(rendered_text,((379-rendered_text.get_width())/2,379))
     return card
+
+def resize(image:pg.Surface,scale:int=1):
+    return pg.transform.scale(image,(round(image.get_width()*scale),round(image.get_height()*scale)))
+
+def display(*image_path,pos=None,center=True):
+    image = pg.image.load(os.path.join(path,'assets','textures',*image_path)+'.png') if type(image_path[0])==str else image_path[0]
+    if pos and center:
+        pos=list(pos)
+        pos[0]-=image.get_width()/2
+        pos[1]-=image.get_height()/2
+    display_image(window,image,pos)

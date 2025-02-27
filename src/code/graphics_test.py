@@ -2,6 +2,7 @@ from graphics import *
 from src import src
 
 test_card=create_card(text=src.character.knoughn)
+test_card=resize(test_card,0.5)
 
 running=True
 while running:
@@ -9,7 +10,7 @@ while running:
         if event.type==pg.QUIT:
             running=False
     window.fill((0,0,0))
-    display(window,test_card)
+    display_image(window,test_card)
     pg.display.flip()
     keys=pg.key.get_pressed()
     if keys[pg.K_q]:

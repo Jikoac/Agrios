@@ -171,6 +171,8 @@ class action:
         self.level=level
         self.rarity=['Common','Rare','Exclusive']
         self.condition=condition
+    def __str__(self):
+        return f'{self.name}\n{self.description}'
 class spell:
     def __init__(self,name='Damage Spell',stamina=5,level=0,description='',condition:dict={'target':'enemy','value':'health','compare':'at_least','standard':0},element=None):
         self.name=name
@@ -181,6 +183,8 @@ class spell:
         self.description=description
         self.condition=condition
         self.element=element
+    def __str__(self):
+        return f'{self.name}\n{self.description}'
 
 class user:
     def __init__(self,user_data=''):
@@ -190,3 +194,4 @@ class user:
         self.__dict__.update(data)
 class game:
     darkness=0
+    players=[]
