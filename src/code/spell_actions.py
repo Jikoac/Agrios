@@ -1,4 +1,4 @@
-from classes import player,game
+from classes import player,game,spell
 from random import randint
 from races import drakonios
 class player(player):
@@ -45,30 +45,29 @@ class player(player):
         power=randint(1,6) * randint(1,3)
         target.health-=power
         self.xp+=power*2
+    def magma_spell(self,target):
+        for _ in range(5):
+            if randint(1,6) <= self.skill:
+                target.health-=self.damage
+                self.xp+=2*self.damage
 
-    def perform_spell(self,spell,target:player=None):
+    def perform_spell(self,spell:spell,target:player=None):
         if self.stamina>=spell.stamina:
             self.stamina-=spell.stamina
             if not self.property['has_hecate_scroll']:
                 self.deck.remove(spell)
         else:
             return False
-        if spell.id=='fire_spell':
-            if target.race.id!='drakonios':
-                self.fire_spell(target)
-            else:
-                self.stamina+=spell.stamina
-                if not self.property['has_hecate_scroll']:
-                    self.deck.append(spell)
-                return False
-        elif spell.id=='tsunami_spell':
-            if target.race.id!='aquarian':
-                self.tsunami_spell(target)
-            else:
-                self.stamina+=spell.stamina
-                if not self.property['has_hecate_scroll']:
-                    self.deck.append(spell)
-                return False
+        if spell.element=='fire' and target.race.id=='drakonios':
+            self.stamina+=spell.stamina
+            if not self.property['has_hecate_scroll']:
+                self.deck.append(spell)
+            return False
+        elif spell.element=='water' and target.race.id=='aquarian':
+            self.stamina+=spell.stamina
+            if not self.property['has_hecate_scroll']:
+                self.deck.append(spell)
+            return False
         elif spell.id=='summoning_spell':
             game.darkness+=1
         else:

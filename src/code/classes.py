@@ -172,7 +172,7 @@ class action:
         self.rarity=['Common','Rare','Exclusive']
         self.condition=condition
 class spell:
-    def __init__(self,name='Damage Spell',stamina=5,level=0,description='',condition:dict={'target':'enemy','value':'health','compare':'at_least','standard':0}):
+    def __init__(self,name='Damage Spell',stamina=5,level=0,description='',condition:dict={'target':'enemy','value':'health','compare':'at_least','standard':0},element=None):
         self.name=name
         self.stamina=stamina
         self.level=level
@@ -180,6 +180,7 @@ class spell:
         self.id=name.lower().replace(' ','_')
         self.description=description
         self.condition=condition
+        self.element=element
 
 class user:
     def __init__(self,user_data=''):
