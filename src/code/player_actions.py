@@ -17,11 +17,7 @@ class player(player):
     def rest(self):
         self.stamina=min(self.stamina+5,self.max_stamina)
     def perform_action(self,action,target=None):
-        if action.id=='attack':
-            self.attack(target)
-        elif action.id=='recover':
-            self.recover()
-        elif action.id=='transform':
+        if action.id=='transform':
             if self.other_form:
                 self.transform(self.other_form)
             else:
@@ -29,7 +25,10 @@ class player(player):
                     if char.id == (self.id+'_wild') and char.series == self.series:
                         self.transform(char)
                         break
-        elif action.id=='rest':
-            self.rest()
         elif action.id=='antimagic':
             pass
+        else:
+            try:
+                getattr(self,action.id)(target)
+            except TypeError:
+                getattr(self,action.id)()

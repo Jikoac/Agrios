@@ -41,8 +41,10 @@ class player(player):
             self.health=max(increased_health,self.health)
             target.health-=self.damage
             self.xp+=self.damage*3
-    def new_spell(self):
-        pass
+    def tsunami_spell(self,target):
+        power=randint(1,6) * randint(1,3)
+        target.health-=power
+        self.xp+=power*2
 
     def perform_spell(self,spell,target:player=None):
         if self.stamina>=spell.stamina:
@@ -51,30 +53,27 @@ class player(player):
                 self.deck.remove(spell)
         else:
             return False
-        if spell.id=='damage_spell':
-            self.damage_spell(target)
-        elif spell.id=='healing_spell':
-            self.heal_spell()
-        elif spell.id=='shield_spell':
-            self.shield_spell()
-        elif spell.id=='fire_spell':
-            if target.race!=drakonios:
+        if spell.id=='fire_spell':
+            if target.race.id!='drakonios':
                 self.fire_spell(target)
             else:
-                self.stamina-=spell.stamina
+                self.stamina+=spell.stamina
                 if not self.property['has_hecate_scroll']:
                     self.deck.append(spell)
                 return False
-        elif spell.id=='sharpness_spell':
-            self.sharpness_spell()
-        elif spell.id=='weakening_spell':
-            self.weakening_spell(target)
-        elif spell.id=='soul_tearing_spell':
-            self.soul_tearing_spell(target)
-        elif spell.id=='spell_of_wisdom':
-            self.spell_of_wisdom()
-        elif spell.id=='leech_spell':
-            self.leech_spell(target)
+        elif spell.id=='tsunami_spell':
+            if target.race.id!='aquarian':
+                self.tsunami_spell(target)
+            else:
+                self.stamina+=spell.stamina
+                if not self.property['has_hecate_scroll']:
+                    self.deck.append(spell)
+                return False
         elif spell.id=='summoning_spell':
             game.darkness+=1
+        else:
+            try:
+                getattr(self,spell.id)(target)
+            except TypeError:
+                getattr(self,spell.id)()
         return True
