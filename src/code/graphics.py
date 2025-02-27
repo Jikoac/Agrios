@@ -76,3 +76,18 @@ def display(*image_path,pos=None,center=True):
         pos[0]-=image.get_width()/2
         pos[1]-=image.get_height()/2
     display_image(window,image,pos)
+
+def button(size=(100,100),pos=None,center=True):
+    if pos == None:
+        pos = (1920-size[0])/2, (1080-size[1])/2
+    if center:
+        pos=list(pos)
+        pos[0]-=size[0]/2
+        pos[1]-=size[1]/2
+    pos=round(pos[0]*scale_factor[0]),round(pos[1]*scale_factor[1])
+    size=round(size[0]*scale_factor[0]),round(size[1]*scale_factor[1])
+    zone=pg.Rect(*size,*pos)
+    mouse_pos=pg.mouse.get_pos()
+    if (mouse_pos[0]>=pos[0] and mouse_pos[0]<=(pos[0]+size[0])) and (mouse_pos[1]>=pos[1] and mouse_pos[1]<=(pos[1]+size[1])):
+        return True
+    return False
