@@ -6,12 +6,15 @@ def wait(time):
     pg.time.delay(round(time*1000))
 
 class game(game):
-    def display(game):
+    def display(self,index=0):
+        player_count=len(self.players)
         display('misc','table')
-        display(resize(create_card(text=player(src.character.knoughn)),0.75),pos=(1060,290)) #Next example player to take turn
-        display(resize(create_card(text=player(src.character.xzaeon)),0.75),pos=(1410,290)) #Example player
-        display(resize(create_card(display_texture='character/__nonefem__',text=player(src.character.hecate)),0.75),pos=(1760,290)) #Example player
-        display(create_card(display_texture='character/__nonefem__',text=player(src.character.mage_goddess_netherbane,src.equipment.knight_armor),font_data=('Noto Sans',20)),pos=(240,640)) #Example player taking turn
+        for i in range(player_count-1):
+            i+=1
+            current_player=self.players[(index+i)%player_count]
+            display(resize(create_card(display_texture=f'character/{current_player.texture}',text=current_player),0.75),pos=(710+i*350,290))
+        main_player=self.players[index]
+        display(create_card(display_texture=f'character/{main_player.texture}',text=main_player,font_data=('Noto Sans',20)),pos=(240,640)) 
         item_x=550
         for item in [src.action.attack,src.action.rest]: #Example deck for player
             display(resize(create_card(text=item),0.5),pos=(item_x,800))
@@ -22,6 +25,7 @@ main_game=game()
 
 if __name__ == '__main__':
     for _ in range(4):
-        game.players.append(src.character.random())
+        main_game.players.append(player(src.character.random()))
     main_game.display()
+    print(len(main_game.players))
     wait(5)

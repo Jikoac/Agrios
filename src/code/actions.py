@@ -8,4 +8,4 @@ class src_action(src_object):
     antimagic=action('Antimagic',available=False,level=-1)
     rest=action('Rest',condition={'tatget':'self','compare':'at_most','value':'stamina','standard':'max_stamina'})
     def __init__(self):
-        self.all=[card for card in self.get_all() if card.available]
+        self.all=self.get_all()

@@ -1,6 +1,5 @@
 from random import randint
 import random
-import pygame as pg
 from data_handling import os,path,load
 import json
 
@@ -12,7 +11,7 @@ class race:
     def __str__(self):
         return self.name
 class character:
-    def __init__(self,name="James Forge",health=10,damage=5,stamina=10,skill=2,slots=1,race=race(),gender='male',series:str|None=None,**properties):
+    def __init__(self,name="James Forge",health=10,damage=5,stamina=10,skill=2,slots=1,race=race(),gender='male',series:str|None=None,available=True,**properties):
         self.name = name
         self.id = name.lower().replace(' ','_')
         self.health = health
@@ -24,12 +23,13 @@ class character:
         self.gender = gender
         self.series=series
         self.property=properties
+        self.available=available
 
         texture_path=os.path.join(path,'assets','textures','character')
         if os.path.isfile(os.path.join(texture_path,self.id)):
-            self.texture=pg.image(os.path.join(texture_path,self.id))
+            self.texture=self.id + ('_wild' if race.id == 'wild_form' else '')
         else:
-            os.path.join(texture_path,('__none__' if gender == 'male' else '__nonefem__'))
+            self.texture='__none__' if gender == 'male' else '__nonefem__'
 
         self.rating = health + stamina +2*damage +5*skill +10*slots +5*race.tier
         self.tier=0
@@ -79,6 +79,7 @@ class player:
         self.id=self.name.lower().replace(' ','_')
         self.other_form=None
         self.xp=0
+        self.texture=character.texture
         for item in items:
             self.equip(item)
     def __format__(self,format_spec):
@@ -147,7 +148,7 @@ class src_object:
         objects = []
         for attr_name in dir(self):
             attr_value = getattr(self, attr_name)
-            if isinstance(attr_value, type):
+            if isinstance(attr_value, type) and not (hasattr(attr_value,'available') and not attr_value.available):
                 objects.append(attr_value)
                 attr_value.id=attr_name
                 self.items.update({attr_name:attr_value})
@@ -193,5 +194,6 @@ class user:
         data.update(user_data)
         self.__dict__.update(data)
 class game:
-    darkness=0
-    players=[]
+    def __init__(self,*players):
+        self.darkness=0
+        self.players=list(players)
