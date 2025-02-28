@@ -16,6 +16,20 @@ if check_file('data','games_played'):
 else:
     games_played=0
     tutorial()
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+if not 'y' in input('Open settings? (Y/N) ').lower():
+    allow_non_heal=input('Allow non-healing action cars? (Y/N)')
+    selected_hero=input('Select a hero: ').lower().replace(' ','_') or None
+    if selected_hero:
+        try:
+            player_hero=src.character.items[selected_hero]
+        except:
+            player_hero=None
+else:
+    allow_non_heal=True
+    player_hero=None
+
 games_played+=1
 save('data','games_played',data=games_played)
 
@@ -29,8 +43,8 @@ def set_character(character=None):
             items.append(new_item)
             inventory-=new_item.size
     return player(hero,*items)
-hero=set_character()
-hero.deck+=[src.action.random()]
+hero=set_character(player_hero)
+hero.deck+=[src.action.random()] if not 'n' in allow_non_heal.lower() else [src.action.recover]
 cards=5
 while cards:
     card=src.spell.randomized()
