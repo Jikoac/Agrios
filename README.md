@@ -4,4 +4,4 @@ For now, run the file "src/code/terminal_mode.py", but I'm working on the versio
 [Python](https://www.python.org)  
 [Pygame](www.pygame.org) 
 # Community
-I would love to hear [feedback](https://github.com/Jikoac/Agrios/issues) from **you.**
+I would love to hear [feedback](https://github.com/Jikoac/Agrios/issues/new) from **you.**
