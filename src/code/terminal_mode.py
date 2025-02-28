@@ -18,7 +18,7 @@ else:
     tutorial()
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
-if not 'y' in input('Open settings? (Y/N) ').lower():
+if 'y' in input('Open settings? (Y/N) ').lower():
     allow_non_heal=input('Allow non-healing action cars? (Y/N)')
     selected_hero=input('Select a hero: ').lower().replace(' ','_') or None
     if selected_hero:
@@ -27,7 +27,7 @@ if not 'y' in input('Open settings? (Y/N) ').lower():
         except:
             player_hero=None
 else:
-    allow_non_heal=True
+    allow_non_heal=''
     player_hero=None
 
 games_played+=1
