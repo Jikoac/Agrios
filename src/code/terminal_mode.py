@@ -48,7 +48,7 @@ hero.deck+=[src.action.random()] if not 'n' in allow_non_heal.lower() else [src.
 cards=5
 while cards:
     card=src.spell.randomized()
-    if (card.level<3 or hero.race.id=='ageless') and card.stamina<=hero.max_stamina:
+    if (card.level<3 or hero.property['can_perform_black_magic']) and card.stamina<=hero.max_stamina:
         hero.deck+=[card]
         cards-=1
 enemy_0=set_character()

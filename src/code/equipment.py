@@ -15,3 +15,4 @@ class src_equipment(src_object):
     time_amulet=equipment('Time Amulet','moves_per_turn','set',2,2)
     ancient_scroll=equipment('Ancient Scroll','stamina','mul',2,2,description='Multiply stamina by 2')
     energy_crystal=equipment('Energy Crystal','regen','add',1)
+    necronomicon=equipment('Necronomicon','can_perform_black_magic','set',True,3,description='Allows you to perform black magic')

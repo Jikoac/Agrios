@@ -47,6 +47,11 @@ class character:
             self.tier=2
         elif self.rating>=50:
             self.tier=1
+
+        if race.id=='ageless':
+            self.property['can_perform_black_magic']=True
+        else:
+            self.property['can_perform_black_magic']=False
     def attack(self):
         if randint(1,6) <= self.skill:
             return self.damage

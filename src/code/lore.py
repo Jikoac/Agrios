@@ -53,7 +53,8 @@ lore=[
     'Theus was the Ageless mage who taught Zerriah Netherbane most of what she knows.',
     'Ulysseus is the Ageless blacksmith who forged the Gryphon Monarch\'s armor',
     #First 50 ^
-    'There are only two beings more powerful than the Coelestis.'
+    'There are only two beings more powerful than the Coelestis.',
+    'The Necronomicon always anyone to use Black Magic, but be careful...'
 ]
 
 if check_path('data','games_played'):
